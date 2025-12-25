@@ -5,7 +5,6 @@ rustflags = [
     "-lstartup",
     "-C", "link-arg=--target=thumbv7em-none-eabihf",
     "-C", "link-arg=-fuse-ld=lld",
-    "-C", "link-arg=-nostartfiles",
     "-C", "link-arg=-Wl,--nmagic",
     "-C", "link-args=-Tlinker.x -mfloat-abi=hard -mcpu=cortex-m4 -mfpu=fpv4-sp-d16",
     "-C", "target-cpu=cortex-m4"

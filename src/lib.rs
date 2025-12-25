@@ -1,5 +1,7 @@
 #![no_std]
 
+pub mod mem;
+
 use core::panic::PanicInfo;
 
 #[panic_handler]

@@ -7,6 +7,7 @@ MEMORY
 ENTRY(Reset);
 
 EXTERN(RESET_VECTOR);
+EXTERN(EXTI13_INTERRUPT_HANDLER);
 
 SECTIONS
 {
@@ -15,6 +16,9 @@ SECTIONS
     LONG(ORIGIN(RAM) + LENGTH(RAM));
 
     KEEP(*(.vector_table.reset_vector));
+
+    . = ORIGIN(FLASH) + 0xE0;
+    KEEP(*(.vector_table.EXTI13_INTERRUPT_HANDLER));
   } > FLASH
 
   .text :
