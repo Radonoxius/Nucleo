@@ -1,7 +1,6 @@
 #![no_std]
 
 use core::panic::PanicInfo;
-use core::ptr;
 
 #[panic_handler]
 fn panic(_panic: &PanicInfo<'_>) -> ! {
@@ -21,44 +20,8 @@ macro_rules! entry {
     };
 }
 
-#[unsafe(no_mangle)]
-pub unsafe extern "C" fn Reset() -> ! {
-    unsafe extern "C" {
-        static mut _sbss: u8;
-        static mut _ebss: u8;
-
-        static mut _sdata: u8;
-        static mut _edata: u8;
-        static _sidata: u8;
-    }
-
-    let count = &raw const _ebss as *const u8 as usize -
-        &raw const _sbss as *const u8 as usize;
-
-    unsafe {
-        ptr::write_bytes(
-            &raw mut _sbss as *mut u8,
-            0,
-            count
-        )
-    };
-
-    let count = &raw const _edata as *const u8 as usize -
-        &raw const _sdata as *const u8 as usize;
-        
-    unsafe {
-        ptr::copy_nonoverlapping(
-            &_sidata as *const u8,
-            &raw mut _sdata as *mut u8,
-            count
-        )
-    };
-
-    unsafe extern "Rust" {
-        safe fn main() -> !;
-    }
-
-    main()
+unsafe extern "C" {
+    pub fn Reset() -> !;
 }
 
 // The reset vector, a pointer into the reset handler

@@ -1,6 +1,8 @@
 [target.thumbv7em-none-eabihf]
 linker = "clang"
 rustflags = [
+    "-Lnative/build",
+    "-lstartup",
     "-C", "link-arg=--target=thumbv7em-none-eabihf",
     "-C", "link-arg=-fuse-ld=lld",
     "-C", "link-arg=-nostartfiles",
